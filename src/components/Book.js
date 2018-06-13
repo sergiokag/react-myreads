@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // libs
-import { get } from './BooksAPI'
+import { get } from '../api/BooksAPI'
 
 export default class Book extends React.Component {
 

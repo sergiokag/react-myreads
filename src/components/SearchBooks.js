@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 
 // libs
-import { search } from './BooksAPI'
+import { search } from '../api/BooksAPI'
 
 export default class SearchBook extends React.Component {
 
