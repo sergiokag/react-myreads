@@ -24,18 +24,18 @@ export default class SearchBook extends React.Component {
     e.preventDefault();
     let _value = this.textVal.value;
 
-    if (_value === '' ) {
+    if (_value === '') {
       return this.setState({
         books: []
       })
-    } 
+    }
 
     search(_value)
-          .then( books => { 
-              //console.log(books)
-              return this.setState({books});
-            })
-            .catch(err => console.error(err));
+      .then(books => {
+        //console.log(books)
+        return this.setState({ books });
+      })
+      .catch(err => console.error(err));
 
   }
 
@@ -43,48 +43,48 @@ export default class SearchBook extends React.Component {
     const _books = this.state.books;
 
     return (
-    <div className="search-wrapper">
-      
-      <div className="search-books">
-        <div className="search-books-bar">
-          <Link className="close-search" to="/">Close</Link>
-          <form 
+      <div className="search-wrapper">
+
+        <div className="search-books">
+          <div className="search-books-bar">
+            <Link className="close-search" to="/">Close</Link>
+            <form
               className="search-books-input-wrapper"
               onSubmit={this.searchBook.bind(this)}>
 
-            <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Search by title or author"
-                ref={(input)=>{this.textVal = input}}
-            />
+                ref={(input) => { this.textVal = input }}
+              />
 
-          </form>
+            </form>
+          </div>
+          <div className="search-books-results">
+            <ol className="books-grid"></ol>
+          </div>
         </div>
-        <div className="search-books-results">
-          <ol className="books-grid"></ol>
-        </div>
-      </div>
 
-      { _books.length? (
+        {_books.length ? (
           <ol className="books-grid">
-            { _books.map( (b,i) => { 
+            {_books.map((b, i) => {
 
               return <li key={i}>
                 <Book
-                    update={this.props.update}
-                    data={_books[i]}/>
-              </li> 
-              
+                  update={this.props.update}
+                  data={_books[i]} />
+              </li>
+
             })}
-          </ol>        
+          </ol>
         ) : (
-          <p
-            className="bookshelf-books"
-          >No Books found</p>
-        )
-      } 
-        
-    </div>
+            <p
+              className="bookshelf-books"
+            >No Books found</p>
+          )
+        }
+
+      </div>
     )
   }
 

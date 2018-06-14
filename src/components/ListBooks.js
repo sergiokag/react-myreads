@@ -28,71 +28,80 @@ export default class ListBooks extends React.Component {
         <div className="list-books-content">
           <div>
             <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
+              <div className="border-line-bottom">
+                <h2 className="bookshelf-title">Currently Reading</h2>
+                <span>( {_crArr.length} )</span>
+              </div>
               <div className="bookshelf-books">
-                    { _crArr.length? (
-                      <ol className="books-grid">
-                        { _crArr.map( (b,i) => { 
+                {_crArr.length ? (
+                  <ol className="books-grid">
+                    {_crArr.map((b, i) => {
 
-                          return <li key={i}>
-                            <Book
-                                update={this.props.update}
-                                data={_crArr[i]}/>
-                          </li> 
-                          
-                        })}
-                      </ol>        
-                    ) : (
-                      <p>No Book Selected</p>
-                    )
-                  }
+                      return <li key={i}>
+                        <Book
+                          update={this.props.update}
+                          data={_crArr[i]} />
+                      </li>
+
+                    })}
+                  </ol>
+                ) : (
+                    <p>No Book Selected</p>
+                  )
+                }
               </div>
             </div>
             <div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
+              <div className="border-line-bottom">
+                <h2 className="bookshelf-title">Want to Read</h2>
+                <span>( {_wrArr.length} )</span>
+              </div>
               <div className="bookshelf-books">
-                  { _wrArr.length? (
-                          <ol className="books-grid">
-                            { _wrArr.map( (b,i) => { 
+                {_wrArr.length ? (
+                  <ol className="books-grid">
+                    {_wrArr.map((b, i) => {
 
-                              return <li key={i}>
-                                <Book
-                                    update={this.props.update}
-                                    data={_wrArr[i]}/>
-                              </li> 
-                              
-                            })}
-                          </ol>        
-                        ) : (
-                          <p>No Book Selected</p>
-                        )
-                      }
+                      return <li key={i}>
+                        <Book
+                          update={this.props.update}
+                          data={_wrArr[i]} />
+                      </li>
+
+                    })}
+                  </ol>
+                ) : (
+                    <p>No Book Selected</p>
+                  )
+                }
               </div>
             </div>
             <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
+              <div className="border-line-bottom">
+                <h2 className="bookshelf-title">Read</h2>
+                <span>( {_readArr.length} )</span>
+              </div>
               <div className="bookshelf-books">
-                  { _readArr.length? (
-                          <ol className="books-grid">
-                            { _readArr.map( (b,i) => { 
+                {_readArr.length ? (
+                  <ol className="books-grid">
+                    {_readArr.map((b, i) => {
 
-                              return <li key={i}>
-                                <Book
-                                    update={this.props.update}
-                                    data={_readArr[i]}/>
-                              </li> 
-                              
-                            })}
-                          </ol>        
-                        ) : (
-                          <p>No Book Selected</p>
-                        )
-                      }
+                      return <li key={i}>
+                        <Book
+                          update={this.props.update}
+                          data={_readArr[i]} />
+                      </li>
+
+                    })}
+                  </ol>
+                ) : (
+                    <p>No Book Selected</p>
+                  )
+                }
               </div>
             </div>
           </div>
         </div>
-        <OpenSearch/>
+        <OpenSearch />
       </div>
     )
   }

@@ -37,8 +37,14 @@ body, .app {
 }
 
 .bookshelf-title {
+  margin-right: 30px;
+  display: inline-block;
+}
+
+.border-line-bottom {
   border-bottom: 1px solid #dedede;
 }
+
 .bookshelf-books {
   text-align: center;
 }

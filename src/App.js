@@ -13,46 +13,57 @@ class BooksApp extends React.Component {
   state = {
     cR: [],
     wR: [],
-    readArr: [], 
+    readArr: [],
     noneArr: [],
   }
 
 
   // methods
+
+  /**
+  * @description Check if the book exist in other state arrays
+  */
   checkIfInArrayAndRemoveIt(a, arr) {
-    const _el = arr.find( e => e.id === a );
-  
-    if(!_el) {
+    const _el = arr.find(e => e.id === a);
+
+    if (!_el) {
       return;
     }
-  
+
     const _index = arr.indexOf(_el);
-    arr.splice(_index, 1)    
+    arr.splice(_index, 1)
   }
 
+
+
+  /**
+  * @description According to the status that we took
+  *              from the book component
+  *              we add to the book the corresponding shelf
+  */
   updateParent(obj) {
-    
+
     const _id = obj.book.id;
     const _book = obj.book;
 
-    switch(obj.status) {
-      
-      case 'currentlyReading': 
-      
+    switch (obj.status) {
+
+      case 'currentlyReading':
+
         // 1 check if this book exists in that array
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.wR
         );
 
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.readArr
         );
 
-        const _index = this.state.cR.find( el => el.id === _id );
+        const _index = this.state.cR.find(el => el.id === _id);
 
-        if( _index ) {
+        if (_index) {
           console.log(this.state);
           return;
         }
@@ -63,26 +74,28 @@ class BooksApp extends React.Component {
           cR: _newBook
         });
 
+        alert(`The Book has been added to Currently Reading`);
+
         break;
 
       case 'wantToRead':
-        
+
         // 1 remove from other arrays this book
-        
-        this.checkIfInArrayAndRemoveIt( 
+
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.cR
         );
 
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.readArr
         );
-        
-        // 2 add to the wR (wantToRead array)
-        const _index2 = this.state.wR.find( el => el.id === _id );
 
-        if( _index2 ) {
+        // 2 add to the wR (wantToRead array)
+        const _index2 = this.state.wR.find(el => el.id === _id);
+
+        if (_index2) {
           console.log(this.state);
           return;
         }
@@ -90,56 +103,61 @@ class BooksApp extends React.Component {
         this.setState({
           wR: _newBook2
         });
+
+        alert(`The Book has been added to Want to Read`);
         break;
-                              
+
       case 'read':
         // 1 check if this book exists in that array
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.wR
         );
 
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.cR
         );
 
-        const _index3 = this.state.readArr.find( el => el.id === _id );
+        const _index3 = this.state.readArr.find(el => el.id === _id);
 
-        if( _index3 ) {
+        if (_index3) {
           console.log(this.state);
           return;
         }
 
         const _newBook3 = this.state.readArr.concat(_book)
         // 2 add this book to the currently ready (cR) array
+        alert(`The Book has been added to Reading`);
+
         this.setState({
           readArr: _newBook3
-        });      
+        });
+
         break;
-      
-      default: 
-      
-        this.checkIfInArrayAndRemoveIt( 
+
+      default:
+
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.wR
         );
 
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.cR
         );
 
-        this.checkIfInArrayAndRemoveIt( 
+        this.checkIfInArrayAndRemoveIt(
           _id,
           this.state.readArr
-        ); 
-        
+        );
+
         this.setState({
-          noneArr: this.state.noneArr.concat(_book).splice(0,0)
+          noneArr: this.state.noneArr.concat(_book).splice(0, 0)
         })
         console.log('remove: ', this.state)
-      
+
     }
 
   }
@@ -151,26 +169,26 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
 
-          <Route 
-              path="/"
-              exact
-              render={() =>(
-                <ListBooks
-                  update={this.updateParent.bind(this)}
-                  currentlyReading={this.state.cR}
-                  wantToRead={this.state.wR}
-                  read={this.state.readArr}
-                />
-            )}/>
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <ListBooks
+              update={this.updateParent.bind(this)}
+              currentlyReading={this.state.cR}
+              wantToRead={this.state.wR}
+              read={this.state.readArr}
+            />
+          )} />
 
-          <Route 
-            path="/search"
-            exact
-            render={() =>(
-              <SearchBooks
-                update={this.updateParent.bind(this)}
-              />            
-          )}/>    
+        <Route
+          path="/search"
+          exact
+          render={() => (
+            <SearchBooks
+              update={this.updateParent.bind(this)}
+            />
+          )} />
 
       </div>
     )

@@ -6,7 +6,11 @@ import PropTypes from 'prop-types'
 import { get } from '../api/BooksAPI'
 
 export default class Book extends React.Component {
-
+  /**
+  * @description Sents to the grand-parent 
+  *              component the selected book.
+  *              We save its state obj.
+  * */
   selectStatus(e) {
 
     const book = {
