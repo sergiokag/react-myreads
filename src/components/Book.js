@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { get } from '../api/BooksAPI'
 
 export default class Book extends React.Component {
+
   /**
   * @description Sents to the grand-parent 
   *              component the selected book.
@@ -23,11 +24,16 @@ export default class Book extends React.Component {
   }
   
   render() {
-    //console.log('Props', this.props)
+    console.log('Props', this.props)
+    const _defaultImage = 'http://via.placeholder.com/128x200';
     return(
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.data.imageLinks.thumbnail})` }}></div>
+          { this.props.data.imageLink ?
+            ( <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.data.imageLinks.thumbnail})` }}></div> ) 
+            :
+            ( <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${_defaultImage})` }}></div> )
+          }
           <div className="book-shelf-changer">
             <select onChange={this.selectStatus.bind(this)}>
               <option value="move" selected disabled>Move to...</option>
