@@ -10,12 +10,17 @@ import SearchBooks from './components/SearchBooks'
 import './App.css'
 
 class BooksApp extends React.Component {
-  state = {
-    cR: [],
-    wR: [],
-    readArr: [],
-    noneArr: [],
+  
+  constructor(props) {
+    super(props)
+    this.state = {
+        cR: [],
+        wR: [],
+        readArr: [],
+        noneArr: [],
+    }
   }
+
 
 
   // methods

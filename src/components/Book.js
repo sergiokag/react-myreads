@@ -7,6 +7,15 @@ import { get } from '../api/BooksAPI'
 
 export default class Book extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      bookStatus: 'none'
+    };
+
+  }
+
   /**
   * @description Sents to the grand-parent 
   *              component the selected book.
@@ -19,28 +28,30 @@ export default class Book extends React.Component {
       book: this.props.data
     }
 
+    this.state.bookStatus = e.target.value;
     this.props.update(book)
+    console.log(this.state)
 
   }
   
   render() {
-    console.log('Props', this.props)
+    //console.log('Props', this.props)
     const _defaultImage = 'http://via.placeholder.com/128x200';
     return(
       <div className="book">
         <div className="book-top">
-          { this.props.data.imageLink ?
+          { this.props.data.imageLinks ?
             ( <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${this.props.data.imageLinks.thumbnail})` }}></div> ) 
             :
             ( <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${_defaultImage})` }}></div> )
           }
           <div className="book-shelf-changer">
             <select onChange={this.selectStatus.bind(this)}>
-              <option value="move" selected disabled>Move to...</option>
-              <option value="currentlyReading">Currently Reading</option>
-              <option value="wantToRead">Want to Read</option>
-              <option value="read">Read</option>
-              <option value="none">None</option>
+              <option value="move" disabled>Move to...</option>
+              <option value="currentlyReading" selected={this.state.bookStatus === 'currentlyReading'}>Currently Reading</option>
+              <option value="wantToRead" selected={this.state.bookStatus === 'wantToRead'}>Want to Read</option>
+              <option value="read" selected={this.state.bookStatus === 'read'}>Read</option>
+              <option value="none" selected={this.state.bookStatus === 'none'}>None</option>
             </select>
           </div>
         </div>
