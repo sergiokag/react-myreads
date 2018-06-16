@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 // libs
-import { get } from '../api/BooksAPI'
+import { update } from '../api/BooksAPI'
 
 export default class Book extends React.Component {
 
@@ -29,8 +29,11 @@ export default class Book extends React.Component {
     }
 
     this.state.bookStatus = e.target.value;
-    this.props.update(book)
-    console.log(this.state)
+    book.book.shelf= this.state.bookStatus;
+    
+    update(book.book, book.status);
+    this.props.update(book);
+    
 
   }
   

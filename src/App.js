@@ -6,6 +6,9 @@ import { Route } from 'react-router-dom'
 import ListBooks from './components/ListBooks'
 import SearchBooks from './components/SearchBooks'
 
+// libs
+import { getAll } from './api/BooksAPI'
+
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -18,12 +21,23 @@ class BooksApp extends React.Component {
         wR: [],
         readArr: [],
         noneArr: [],
+        cachedBooks: []
     }
   }
 
-
-
   // methods
+  componentWillMount() {
+    //TODO
+    getAll()
+      .then( r => {
+        this.setState({
+          cachedBooks: r 
+        })
+        console.log(this.state)
+      })
+      .catch( e => console.error(e) );
+    
+  }
 
   /**
   * @description Check if the book exist in other state arrays

@@ -8,8 +8,7 @@ import Book from './Book'
 export default class ListBooks extends React.Component {
 
   constructor(props) {
-    super(props)
-    console.log(this.props)
+    super(props);
   }
 
   // data
@@ -105,6 +104,5 @@ export default class ListBooks extends React.Component {
       </div>
     )
   }
-
 
 }
