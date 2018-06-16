@@ -20,6 +20,29 @@ export default class SearchBook extends React.Component {
   //data
 
   //methods
+  updateBookStatus(books) {
+    const arr1 = this.props.cachedBooks;
+    const arr2 = books;
+
+    if( !arr1.length || !arr2.length ) {
+      return;
+    }
+    console.log('e1, e2')
+    arr1.forEach((e1)=>arr2.forEach((e2) =>
+      {
+        if ( e1.id === e2.id ) {
+
+          e2.shelf = e1.shelf;
+
+        }
+      }
+    ))
+
+    console.log('>>>>> books:', books)
+    this.setState({ books });
+
+  }
+
   searchBook(e) {
     e.preventDefault();
     let _value = this.textVal.value;
@@ -32,8 +55,9 @@ export default class SearchBook extends React.Component {
 
     search(_value)
       .then(books => {
-        //console.log(books)
-        return this.setState({ books });
+        
+        this.updateBookStatus(books);
+
       })
       .catch(err => console.error(err));
 
@@ -72,7 +96,8 @@ export default class SearchBook extends React.Component {
               return <li key={i}>
                 <Book
                   update={this.props.update}
-                  data={_books[i]} />
+                  data={_books[i]} 
+                  shelf={ _books[i].shelf || 'none'}/>
               </li>
 
             })}

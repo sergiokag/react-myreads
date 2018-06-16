@@ -33,7 +33,6 @@ class BooksApp extends React.Component {
         this.setState({
           cachedBooks: r 
         })
-        console.log(this.state)
       })
       .catch( e => console.error(e) );
     
@@ -52,8 +51,6 @@ class BooksApp extends React.Component {
     const _index = arr.indexOf(_el);
     arr.splice(_index, 1)
   }
-
-
 
   /**
   * @description According to the status that we took
@@ -183,8 +180,6 @@ class BooksApp extends React.Component {
 
   render() {
 
-    console.log(this.state)
-
     return (
       <div className="app">
 
@@ -193,6 +188,7 @@ class BooksApp extends React.Component {
           exact
           render={() => (
             <ListBooks
+              cachedBooks={this.state.cachedBooks}
               update={this.updateParent.bind(this)}
               currentlyReading={this.state.cR}
               wantToRead={this.state.wR}
@@ -205,6 +201,7 @@ class BooksApp extends React.Component {
           exact
           render={() => (
             <SearchBooks
+              cachedBooks={this.state.cachedBooks}
               update={this.updateParent.bind(this)}
             />
           )} />

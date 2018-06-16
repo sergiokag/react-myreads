@@ -18,6 +18,35 @@ export default class ListBooks extends React.Component {
     const _crArr = this.props.currentlyReading;
     const _wrArr = this.props.wantToRead;
     const _readArr = this.props.read;
+    const _cached = this.props.cachedBooks;
+
+    _cached.map( book => {
+      
+      if( 
+        book.shelf === 'currentlyReading'
+        && 
+        _crArr.indexOf(book) === -1
+       ) {
+        _crArr.push(book);
+      }
+
+      if( 
+        book.shelf === 'wantToRead'
+        && 
+        _wrArr.indexOf(book) === -1
+      ) {
+        _wrArr.push(book);
+      }   
+      
+      if( 
+        book.shelf === 'read' 
+        &&
+        _readArr.indexOf(book) === -1
+      ) {
+        _readArr.push(book)
+      }
+
+    })
 
     return (
       <div className="list-books">
@@ -39,7 +68,8 @@ export default class ListBooks extends React.Component {
                       return <li key={i}>
                         <Book
                           update={this.props.update}
-                          data={_crArr[i]} />
+                          data={_crArr[i]}
+                          shelf={_crArr[i].shelf} />
                       </li>
 
                     })}
@@ -63,7 +93,8 @@ export default class ListBooks extends React.Component {
                       return <li key={i}>
                         <Book
                           update={this.props.update}
-                          data={_wrArr[i]} />
+                          data={_wrArr[i]} 
+                          shelf={_wrArr[i].shelf} />
                       </li>
 
                     })}
@@ -87,7 +118,8 @@ export default class ListBooks extends React.Component {
                       return <li key={i}>
                         <Book
                           update={this.props.update}
-                          data={_readArr[i]} />
+                          data={_readArr[i]}
+                          shelf={_readArr[i].shelf} />
                       </li>
 
                     })}

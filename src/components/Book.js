@@ -11,7 +11,7 @@ export default class Book extends React.Component {
     super(props);
 
     this.state = {
-      bookStatus: 'none'
+      bookStatus: this.props.shelf
     };
 
   }
@@ -32,6 +32,7 @@ export default class Book extends React.Component {
     book.book.shelf= this.state.bookStatus;
     
     update(book.book, book.status);
+
     this.props.update(book);
     
 
