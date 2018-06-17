@@ -72,17 +72,17 @@ export default class SearchBook extends React.Component {
         <div className="search-books">
           <div className="search-books-bar">
             <Link className="close-search" to="/">Close</Link>
-            <form
-              className="search-books-input-wrapper"
-              onSubmit={this.searchBook.bind(this)}>
+            <div className="search-books-input-wrapper">
+              
 
               <input
+                onChange={this.searchBook.bind(this)}
                 type="text"
                 placeholder="Search by title or author"
                 ref={(input) => { this.textVal = input }}
               />
 
-            </form>
+            </div>
           </div>
           <div className="search-books-results">
             <ol className="books-grid"></ol>

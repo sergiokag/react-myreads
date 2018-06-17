@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
   }
 
   // methods
-  componentWillMount() {
+  componentDidMount() {
     //TODO
     getAll()
       .then( r => {
