@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 
 // libs
+import _ from 'lodash'
 import { search } from '../api/BooksAPI'
 
 export default class SearchBook extends React.Component {
@@ -20,25 +21,28 @@ export default class SearchBook extends React.Component {
   //data
 
   //methods
+
   updateBookStatus(books) {
     const arr1 = this.props.cachedBooks;
     const arr2 = books;
 
+    console.log(arr1, arr2)
+
     if( !arr1.length || !arr2.length ) {
       return;
     }
-    console.log('e1, e2')
+
     arr1.forEach((e1)=>arr2.forEach((e2) =>
       {
-        if ( e1.id === e2.id ) {
+        if ( e1.id === e2.id && e1.shelf !== e2.shelf ) {
 
           e2.shelf = e1.shelf;
 
         }
+
       }
     ))
-
-    console.log('>>>>> books:', books)
+    
     this.setState({ books });
 
   }
@@ -74,13 +78,11 @@ export default class SearchBook extends React.Component {
             <Link className="close-search" to="/">Close</Link>
             <div className="search-books-input-wrapper">
               
-
               <input
-                onChange={this.searchBook.bind(this)}
+                onChange={ _.debounce(this.searchBook.bind(this), 700)}
                 type="text"
                 placeholder="Search by title or author"
-                ref={(input) => { this.textVal = input }}
-              />
+                ref={(input) => { this.textVal = input }} />
 
             </div>
           </div>

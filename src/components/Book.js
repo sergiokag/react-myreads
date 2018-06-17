@@ -22,18 +22,24 @@ export default class Book extends React.Component {
   *              We save its state obj.
   * */
   selectStatus(e) {
-
+    
     const book = {
       status: e.target.value,
       book: this.props.data
     }
 
-    this.state.bookStatus = e.target.value;
-    book.book.shelf= this.state.bookStatus;
+    this.setState({
+      bookStatus: e.target.value
+    });
+
     
+    // from api
     update(book.book, book.status);
 
-    this.props.update(book);
+    console.log(book, book.status);
+    
+    // from App component
+    this.props.update(book, book.status);
     
 
   }
