@@ -22,7 +22,7 @@ export default class SearchBook extends React.Component {
 
   //methods
 
-  updateBookStatus(books) {
+  updateCachedBookStatus(books) {
     const arr1 = this.props.cachedBooks;
     const arr2 = books;
 
@@ -33,7 +33,8 @@ export default class SearchBook extends React.Component {
     }
 
     arr1.forEach((e1)=>arr2.forEach((e2) =>
-      {
+      {   
+
         if ( e1.id === e2.id && e1.shelf !== e2.shelf ) {
 
           e2.shelf = e1.shelf;
@@ -41,10 +42,33 @@ export default class SearchBook extends React.Component {
         }
 
       }
-    ))
+    ));
+
+    this.updateBooks(books);
     
     this.setState({ books });
 
+  }
+
+  updateBooks(books) {
+    const arr1 = this.props.allBooks;
+    const arr2 = books;
+    console.log('arr1: ', arr1)
+
+    if( !arr1.length || !arr2.length ) {
+      return;
+    }
+
+    arr1.forEach((e1)=>arr2.forEach((e2) =>
+      {   
+
+        if ( e1.id === e2.id && e1.shelf !== e2.shelf ) {
+          e2.shelf = e1.shelf;
+        }
+        
+      }
+    ));
+    
   }
 
   searchBook(e) {
@@ -60,7 +84,7 @@ export default class SearchBook extends React.Component {
     search(_value)
       .then(books => {
         
-        this.updateBookStatus(books);
+        this.updateCachedBookStatus(books);
 
       })
       .catch(err => console.error(err));
@@ -79,7 +103,7 @@ export default class SearchBook extends React.Component {
             <div className="search-books-input-wrapper">
               
               <input
-                onChange={ _.debounce(this.searchBook.bind(this), 700)}
+                onChange={ _.debounce(this.searchBook.bind(this), 500)}
                 type="text"
                 placeholder="Search by title or author"
                 ref={(input) => { this.textVal = input }} />
@@ -93,7 +117,7 @@ export default class SearchBook extends React.Component {
 
         {_books.length ? (
           <ol className="books-grid">
-            {_books.map((b, i) => {
+            {_books.map((b, i, _books) => {
 
               return <li key={i}>
                 <Book

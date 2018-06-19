@@ -35,8 +35,6 @@ export default class Book extends React.Component {
     
     // from api
     update(book.book, book.status);
-
-    console.log(book, book.status);
     
     // from App component
     this.props.update(book, book.status);
